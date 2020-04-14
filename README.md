@@ -1,4 +1,4 @@
-Small projects done to play with data, learn/pracice algorithms 
+Here I keep track of small projects that I am doing to play with data, learn/pracice algorithms/topics  
 
 **Random Forest**
 
