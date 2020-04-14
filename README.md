@@ -1,2 +1,3 @@
-# Machine_Learning-
-This contains ML and data since projects 
+# Machine_Learning:
+This contains projects that I have been workign on to practice my Data science skills.
+
