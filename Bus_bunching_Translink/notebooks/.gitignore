@@ -1,2 +1,3 @@
 # ignore this following notebooks for now
-
+/analyze_clean_BB_data.ipynb
+/BusBunchingClassification_analysis.ipynb
