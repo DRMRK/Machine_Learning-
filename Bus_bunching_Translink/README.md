@@ -1,7 +1,5 @@
-# 2019RandomForest
+# Bus bunching classification
 
--- Write Decision Tree algorithm (complete)
-
--- Implement the Random Forest algorithm (in progress)
-
--- Clean the dataset (in progress)
+- In the notebooks folder
+-- analyze_cleaned_data.ipynb analyzes cleaned data
+-- clean_BB_data.ipynb cleans the raw data 
