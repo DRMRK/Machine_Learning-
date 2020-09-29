@@ -140,10 +140,12 @@ cython_debug/
 #input data and models
 input/
 models/
+data/
 # data files
 *.csv
 *.h5
 *.pkl
 *.pth
 *.xml
+*.html
 
