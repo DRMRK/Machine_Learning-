@@ -145,4 +145,5 @@ models/
 *.h5
 *.pkl
 *.pth
+*.xml
 
