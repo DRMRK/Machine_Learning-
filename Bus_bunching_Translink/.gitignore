@@ -141,6 +141,7 @@ cython_debug/
 input/
 models/
 data/
+.ipynb_checkpoints/
 # data files
 *.csv
 *.h5
