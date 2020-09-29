@@ -14,7 +14,7 @@ from sklearn.metrics import fbeta_score, accuracy_score
 from pprint import pprint
 import numpy as np
 
-class plot_and_scores():
+class plots_and_scores():
     """ 
     Input 
     ---------
@@ -98,4 +98,25 @@ class plot_and_scores():
         plt.xlabel("Threshold")
         plt.legend(loc="lower left")
         #plt.ylim([0,1])
-        plt.show() 
+        plt.show()
+        
+## Some more functions
+
+def mcc_Metric(y,y_pred):
+        
+        cf_matrix=confusion_matrix(y, y_pred)
+        TP = cf_matrix[0][0]
+        TN = cf_matrix[1][1]
+        FN = cf_matrix[0][1]
+        FP = cf_matrix[1][0]
+        N = TN + TP + FN + FP 
+        S = (TP + FN)/N
+        P = (TP + FP)/N
+        num = (TP /N) - (S*P)
+        deno = np.sqrt(P*S*(1-S)*(1-P))
+        
+        #Need to avoide division by zero
+        return weird_division(num,deno)
+    
+def weird_division(n, d):
+        return n / d if d else 0        
