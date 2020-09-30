@@ -1,25 +1,29 @@
+# This file takes original data, cleans it and saves it.
+# The rational behind cleaning steps is explained in the notebooks.
+
 from helper.structured import *
-TRAINING_DATA = os.environ.get("TRAINING_DATA")
-CLEANED_DATA =os.environ.get("CLEANED_DATA")
 
+# get the original data
+ORIGINAL_DATA = os.environ.get("ORIGINAL_DATA")
+# save the cleaned data here
+CLEANED_DATA = os.environ.get("CLEANED_DATA")
 
-if __name__=="__main__":
-    df = pd.read_pickle(TRAINING_DATA)
-    #print(df.head())
-    #Change date to datetime format
+if __name__ == "__main__":
+    df = pd.read_pickle(ORIGINAL_DATA)
+    # Change date to datetime format
     df['OperationDate'] = pd.to_datetime(df['OperationDate'])
     # Use a helper function to get extra columns from date column
     add_datepart(df, 'OperationDate')
     # Remove Nan values from the data
     df = df.dropna()
-    #Drop the DEW column
+    # Drop the DEW column
     df.Dew.dropna()
     # Drop unnecessary columns.
     df = df.drop(['Line', 'Trip', 'TimingPoint', 'MinStopNo', 'MaxStopNo',
                   'ScheduledArriveTime', 'ActualArriveTime',
                   'ScheduledLeaveTime', 'ActualLeaveTime', 'Origin', 'Dew',
                   'Destination', 'Start.Stop',
-                  'BusBunchingFlag','TripPatternCompleteness', 'TripLegInt',
+                  'BusBunchingFlag', 'TripPatternCompleteness', 'TripLegInt',
                   ], axis=1)
     df[['Temp', 'Visibility', 'OriginLat', 'OriginLong', 'GPSLat', 'GPSLong']] \
         = df[['Temp', 'Visibility', 'OriginLat', 'OriginLong', 'GPSLat', 'GPSLong']
@@ -38,7 +42,7 @@ if __name__=="__main__":
     # Replace the null values with median.
     for col in ['ScheduledHeadway', 'ActualHeadway', 'HeadwayOffset']:
         df[col] = df[col].fillna(df[col].median())
-    #convert all strings to categorical values
+    # convert all strings to categorical values
     train_cats(df)
     # Target encoded the StopName
     from category_encoders.target_encoder import TargetEncoder
@@ -49,15 +53,10 @@ if __name__=="__main__":
     encoder.fit(df, df['NextLegBunchingFlag'])
     df_encoded = encoder.transform(df, df['NextLegBunchingFlag'])
 
-    #One hot encode the DayType column
+    # One hot encode the DayType column
     temp = pd.get_dummies(df_encoded['DayType'])
     frames = [df_encoded, temp]
     df_encoded = pd.concat(frames, axis=1, join='outer', ignore_index=False)
     df_encoded = df_encoded.drop('DayType', axis=1)
     # Save the cleaned data in feather file
     df_encoded.to_feather(CLEANED_DATA)
-
-
-
-
-
