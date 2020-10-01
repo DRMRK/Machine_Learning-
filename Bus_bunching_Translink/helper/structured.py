@@ -4,7 +4,7 @@ from sklearn_pandas import DataFrameMapper
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
 from pandas.api.types import is_string_dtype, is_numeric_dtype, is_categorical_dtype
-from sklearn.ensemble import forest 
+#from sklearn.ensemble import forest
 from sklearn.tree import export_graphviz
 
 def set_plot_sizes(sml, med, big):
