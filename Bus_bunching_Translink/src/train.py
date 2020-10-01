@@ -1,15 +1,7 @@
 # We use this to analyze the data cleaned in clean_data.py
 
-#import sys
-#import os
-#from random import randint
-#import pandas as pd
-#import numpy as np
-#from helper.imports import *
 from helper.structured import *
-#import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-#from sklearn.ensemble import RandomForestClassifier
 from helper.plots_and_scores import *
 import time
 from sklearn.preprocessing import StandardScaler
@@ -46,7 +38,7 @@ if __name__ == '__main__':
     # choose the model
     model = dispatcher.MODELS[MODEL]
     # This steps returns the fitted model ready for prediction
-    clf = model.default(X_train, y_train)
+    clf = model.DefaultRF(X_train, y_train)
     end_time = time.time() - start_time
     print("Time taken for training: {:.4f} s".format(end_time))
     y_pred = clf.predict(X_test)

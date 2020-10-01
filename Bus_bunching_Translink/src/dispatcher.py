@@ -20,7 +20,7 @@ class RandomForestModel:
     def __init__(self):
         self.random_forest = RandomForestClassifier(n_jobs=-1, criterion='gini')
 
-    def default(self, X,y):
+    def DefaultRF(self, X,y):
         """
         Trains a model with default parameters and returns the model
         Returns
