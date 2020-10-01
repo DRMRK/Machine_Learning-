@@ -42,6 +42,7 @@ if __name__ == '__main__':
     end_time = time.time() - start_time
     print("Time taken for training: {:.4f} s".format(end_time))
     y_pred = clf.predict(X_test)
+    # to plot we use the plots and scores module
     scores = plots_and_scores(y_test, y_pred, None)
     scores.print_scores()
     scores.display_confusion_matrix(report1, 'Test')

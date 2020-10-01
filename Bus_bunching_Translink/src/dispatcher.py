@@ -1,4 +1,3 @@
-from sklearn import ensemble
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import RandomizedSearchCV
@@ -102,13 +101,7 @@ class log_reg_model():
         print('\n')
         # un_opt_pred =un_opt_model.predict(self.X)
         return un_opt_model
-"""  
-MODELS = {
-    "randomforest": ensemble.RandomForestClassifier(random_state=0, n_estimators=150, criterion='gini',
-                                                    n_jobs=-1, oob_score=True, verbose=2, max_features=0.5,
-                                                    max_samples=0.8, min_samples_leaf=2),
-    "logisticregression": LogisticRegression(max_iter=1000, C=100000, penalty='l2')
-}"""
+
 
 MODELS = {
     "randomforest": RandomForestModel(),
