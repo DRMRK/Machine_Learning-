@@ -15,7 +15,8 @@ from pprint import pprint
 import numpy as np
 from sklearn.metrics import plot_confusion_matrix
 
-class plots_and_scores():
+
+class PlotsAndScores:
     """ 
     Input 
     ---------
@@ -30,7 +31,7 @@ class plots_and_scores():
         self.y_pred = y_pred
         self.y_pred_proba = y_pred_proba
 
-    def plot_ROC(self, name):
+    def plot_roc(self, name):
         self.name = name
         n_classes = 1
         fpr = dict()
@@ -60,38 +61,35 @@ class plots_and_scores():
         print("MCC score: {:.4f}".format(self.mcc_Metric()))
         print("F-score: {:.4f}".format(self.fbetascore()))
 
-    def fbetascore(self):
+    def fbeta_score(self):
         return fbeta_score(self.y, self.y_pred, beta=0.5)
 
-    def mcc_Metric(self):
+    def mcc_metric(self):
         cf_matrix = confusion_matrix(self.y, self.y_pred)
-        TP = cf_matrix[0][0]
-        TN = cf_matrix[1][1]
-        FN = cf_matrix[0][1]
-        FP = cf_matrix[1][0]
-        N = TN + TP + FN + FP
-        S = (TP + FN) / N
-        P = (TP + FP) / N
-        num = (TP / N) - (S * P)
-        deno = np.sqrt(P * S * (1 - S) * (1 - P))
+        tp = cf_matrix[0][0]
+        tn = cf_matrix[1][1]
+        fn = cf_matrix[0][1]
+        fp = cf_matrix[1][0]
+        n = tn + tp + fn + fp
+        s = (tp + fn) / n
+        p = (tp + fp) / n
+        num = (tp / n) - (s * P)
+        deno = np.sqrt(p * s * (1 - s) * (1 - p))
 
         # Need to avoide division by zero
         return self.weird_division(num, deno)
 
     def display_confusion_matrix(self, filepath, title):
-
         self.filepath = filepath
         self.title = title
         cm = confusion_matrix(self.y, self.y_pred)
         cmd = ConfusionMatrixDisplay(cm)
         cmd.plot(cmap='gist_ncar')
-        fig1=plt.gcf()
+        fig1 = plt.gcf()
         plt.title(self.title)
         plt.show()
         plt.draw()
         fig1.savefig(f'{self.filepath}')
-
-
 
     def weird_division(self, n, d):
         self.n = n
@@ -112,20 +110,20 @@ class plots_and_scores():
 
 ## Some more functions
 
-def mcc_Metric(y, y_pred):
+def mcc_metric(y, y_pred):
     cf_matrix = confusion_matrix(y, y_pred)
-    TP = cf_matrix[0][0]
-    TN = cf_matrix[1][1]
-    FN = cf_matrix[0][1]
-    FP = cf_matrix[1][0]
-    N = TN + TP + FN + FP
-    S = (TP + FN) / N
-    P = (TP + FP) / N
-    num = (TP / N) - (S * P)
-    deno = np.sqrt(P * S * (1 - S) * (1 - P))
+    tp = cf_matrix[0][0]
+    tn = cf_matrix[1][1]
+    fn = cf_matrix[0][1]
+    fp = cf_matrix[1][0]
+    n = tn + tp + fn + fp
+    s = (tp + fn) / n
+    p = (tp + fp) / n
+    num = (tp / n) - (s * p)
+    denom = np.sqrt(p * s * (1 - s) * (1 - p))
 
-    # Need to avoide division by zero
-    return weird_division(num, deno)
+    # Need to avoid division by zero
+    return weird_division(num, denom)
 
 
 def weird_division(n, d):
