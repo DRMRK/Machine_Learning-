@@ -15,4 +15,4 @@
 
 - In order to run 
 
--- sh run.sh 
+-- sh run.sh "model name"
