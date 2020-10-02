@@ -11,7 +11,6 @@ TRAINING_DATA = os.environ.get("TRAINING_DATA")
 CLEANED_DATA = os.environ.get("CLEANED_DATA")
 report1 = os.environ.get('REPORT1')
 MODEL = os.environ.get("MODEL")
-print('kkk', MODEL)
 
 if __name__ == '__main__':
     # Load the cleaned dataset
@@ -38,13 +37,17 @@ if __name__ == '__main__':
     start_time = time.time()
     # choose the model
     model = dispatcher.MODELS[MODEL]
-    print('lll', model)
     # This steps returns the fitted model ready for prediction
-    clf = model.DefaultRF(X_train, y_train)
+    clf = model.defaultmodel(X_train, y_train)
     end_time = time.time() - start_time
     print("Time taken for training: {:.4f} s".format(end_time))
-    y_pred = clf.predict(X_test)
-    # to plot we use the plots and scores module
-    scores = PlotsAndScores(y_test, y_pred, None)
-    scores.print_scores()
-    scores.display_confusion_matrix(report1, 'Test')
+    print("Scores for test data")
+    y_pred_test = clf.predict(X_test)
+    scores_test = PlotsAndScores(y_test, y_pred_test, None)
+    scores_test.print_scores()
+    print('-------------\n')
+    # scores_test.display_confusion_matrix(report1, 'Test')
+    print("Scores for train data")
+    y_pred_train = clf.predict(X_train)
+    scores_train = PlotsAndScores(y_train, y_pred_train, None)
+    scores_train.print_scores()

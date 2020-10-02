@@ -1,10 +1,13 @@
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import RandomizedSearchCV
 import time
 from random import randint
 
-from sklearn.metrics import make_scorer
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import RandomizedSearchCV
+from sklearn.tree import DecisionTreeClassifier
+import xgboost
+
 from helper.plots_and_scores import *
 
 
@@ -14,12 +17,11 @@ class RandomForestModel:
         ---------
         X : input features
         y : target"""
-    print("Training a Random Forest model")
 
     def __init__(self):
         self.random_forest = RandomForestClassifier(n_jobs=-1, criterion='gini')
 
-    def DefaultRF(self, X, y):
+    def defaultmodel(self, X, y):
         """
         Trains a model with default parameters and returns the model
         Returns
@@ -84,18 +86,16 @@ class RandomForestModel:
 class LogisticRegModel:
     """ Trains a Logistic Regression model"""
 
-    print("Training a Logistic Regression Model")
-
     def __init__(self):
-        self.log_reg = LogisticRegression(max_iter=1000, C=100000, penalty='l2')
+        self.clf = LogisticRegression(max_iter=1000, C=100000, penalty='l2')
 
-    def DefaultLogisticReg(self):
+    def defaultmodel(self):
         # takes in X and y and trains a model with default parameters and returns the model
         self.X = X
         self.y = y
         print("In unoptimized fit now in LR--------")
         t = time.time()
-        un_opt_model = self.log_reg.fit(self.X, self.y)
+        un_opt_model = self.clf.fit(self.X, self.y)
         elapsed_time = time.time() - t
         print("Time taken to fit: {:.4f} s".format(elapsed_time))
         print('\n')
@@ -103,7 +103,43 @@ class LogisticRegModel:
         return un_opt_model
 
 
+class AdaBoostModel:
+    def __init__(self):
+        self.clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=1),
+                                      n_estimators=200, algorithm="SAMME.R",
+                                      learning_rate=0.5)
+
+    def defaultmodel(self, X, y):
+        self.X = X
+        self.y = y
+        print("In unoptimized fit now in AdaBoost--------")
+        t = time.time()
+        model = self.clf.fit(self.X, self.y)
+        elapsed_time = time.time() - t
+        print("Time taken to fit: {:.4f} s".format(elapsed_time))
+        print('\n')
+        # un_opt_pred =un_opt_model.predict(self.X)
+        return model
+
+class XgboostModel:
+    def __init__(self):
+        self.clf = xgboost.XGBRFClassifier()
+
+    def defaultmodel(self, X,y):
+        self.X = X
+        self.y = y
+        print("In unoptimized fit now in XGBoost--------")
+        t = time.time()
+        model = self.clf.fit(self.X, self.y)
+        elapsed_time = time.time() - t
+        print("Time taken to fit: {:.4f} s".format(elapsed_time))
+        print('\n')
+        return model
+
+
 MODELS = {
     "randomforest": RandomForestModel(),
-    "logisticregression": LogisticRegModel()
+    "logisticregression": LogisticRegModel(),
+    "adaboost": AdaBoostModel(),
+    "xgboost": XgboostModel()
 }

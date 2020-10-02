@@ -58,8 +58,8 @@ class PlotsAndScores:
 
     def print_scores(self):
         print("Accuracy score: {:.4f}".format(accuracy_score(self.y, self.y_pred)))
-        print("MCC score: {:.4f}".format(self.mcc_Metric()))
-        print("F-score: {:.4f}".format(self.fbetascore()))
+        print("MCC score: {:.4f}".format(self.mcc_metric()))
+        print("F-score: {:.4f}".format(self.fbeta_score()))
 
     def fbeta_score(self):
         return fbeta_score(self.y, self.y_pred, beta=0.5)
@@ -73,10 +73,10 @@ class PlotsAndScores:
         n = tn + tp + fn + fp
         s = (tp + fn) / n
         p = (tp + fp) / n
-        num = (tp / n) - (s * P)
+        num = (tp / n) - (s * p)
         deno = np.sqrt(p * s * (1 - s) * (1 - p))
 
-        # Need to avoide division by zero
+        # Need to avoid division by zero
         return self.weird_division(num, deno)
 
     def display_confusion_matrix(self, filepath, title):
