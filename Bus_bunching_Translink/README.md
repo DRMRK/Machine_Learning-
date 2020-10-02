@@ -12,3 +12,7 @@
 -- train.py py trains the model
 
 -- dispatcher.py contains models
+
+- In order to run 
+
+-- sh run.sh 
