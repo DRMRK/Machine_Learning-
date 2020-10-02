@@ -1,6 +1,6 @@
 ## Bus bunching classification
 
-- In the notebooks folder
+- In the notebooks directory
 
 -- analyze_cleaned_data.ipynb analyzes cleaned data
 
