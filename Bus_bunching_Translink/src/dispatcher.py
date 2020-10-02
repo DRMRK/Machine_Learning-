@@ -6,6 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import VotingClassifier
 import xgboost
 from sklearn.inspection import permutation_importance
 
@@ -153,6 +154,21 @@ class FeatImportance:
         elapsed_time = time.time() - t
         print("Time taken for feature importance: {:.4f} s".format(elapsed_time))
         return result, sorted_idx
+
+
+class VotingCls:
+
+    def __init__(self):
+        self.log_clf = LogisticRegression(max_iter=1000, C=100000, penalty='l2')
+        self.xgb_clf = xgboost.XGBRFClassifier()
+        self.random_forest_clf = RandomForestClassifier(n_jobs=-1, criterion='gini')
+
+    def votingcls(self, X,y):
+        self.X= X
+        self.y = y
+
+
+
 
 
 MODELS = {
