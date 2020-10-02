@@ -7,6 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import VotingClassifier
+from sklearn.svm import SVC
 import xgboost
 from sklearn.inspection import permutation_importance
 
@@ -158,22 +159,33 @@ class FeatImportance:
 
 class VotingCls:
 
+
     def __init__(self):
         self.log_clf = LogisticRegression(max_iter=1000, C=100000, penalty='l2')
         self.xgb_clf = xgboost.XGBRFClassifier()
         self.random_forest_clf = RandomForestClassifier(n_jobs=-1, criterion='gini')
+        self.svc_clf = SVC()
+        self.ADB_clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=1), n_estimators=200,
+                                          algorithm="SAMME.R", learning_rate=0.5)
 
-    def votingcls(self, X,y):
-        self.X= X
+    def defaultmodel(self, X, y):
+        print("In Voting classifier")
+        self.X = X
         self.y = y
-
-
-
+        voting_clf = VotingClassifier(estimators=[('svc', self.svc_clf), ('lr', self.log_clf), ('xgb', self.xgb_clf),
+                                                  ('rf', self.random_forest_clf),('adb', self.ADB_clf)], voting='hard')
+        t = time.time()
+        model = voting_clf.fit(self.X, self.y)
+        elapsed_time = time.time() - t
+        print("Time taken to fit voting classifier: {:.4f} s".format(elapsed_time))
+        print('\n')
+        return model
 
 
 MODELS = {
     "randomforest": RandomForestModel(),
     "logisticregression": LogisticRegModel(),
     "adaboost": AdaBoostModel(),
-    "xgboost": XgboostModel()
+    "xgboost": XgboostModel(),
+    "votingclassifier": VotingCls()
 }

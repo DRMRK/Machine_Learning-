@@ -17,13 +17,12 @@ if __name__ == '__main__':
     # Load the cleaned dataset
     data = pd.read_feather(CLEANED_DATA)
     # There is an extra index column, remove it
-    data = data.drop(['index'], axis=1)
+    data = data.drop(['index', 'NextNextLegBunchingFlag',
+                      'NextNextNextLegBunchingFlag'], axis=1)
     # Convert all columns to numeric column and
     # separate out the target variable
 
-    X, y, nas = proc_df(data, y_fld='NextLegBunchingFlag',
-                        skip_flds=['NextNextLegBunchingFlag',
-                                   'NextNextNextLegBunchingFlag'])
+    X, y, nas = proc_df(data, y_fld='NextLegBunchingFlag')
     # Standardize the dataset
     ss = StandardScaler()
     X_scaled = pd.DataFrame(ss.fit_transform(X), columns=X.columns)
@@ -35,7 +34,6 @@ if __name__ == '__main__':
         train_test_split(X_test_valid, y_test_valid,
                          random_state=1, test_size=0.50,
                          stratify=y_test_valid)
-
 
     # Now the data is ready for modelling
     print("Instantiating and training the model")
@@ -58,11 +56,11 @@ if __name__ == '__main__':
     print("Now do feature selection")
     imp_feature = FeatImportance(clf, X_test, y_test)
     result, sorted_idx = imp_feature.feat_importance()
-    print('Top 8 features later ones are more important: ', X_test.columns[sorted_idx[-4:]])
+    print('Top 8 features later ones are more important: ', X_test.columns[sorted_idx[-10:]])
     scores_test.feature_importance_plot(result, data, sorted_idx)
 
     # Choose the top 8 features and run the predictions again
-    feat = X_test.columns[sorted_idx[-4:]]
+    feat = X_test.columns[sorted_idx[-10:]]
     top_8_features = [i for i in feat]
     X_scaled_chosen = X_scaled[top_8_features]
     print('-------------')
