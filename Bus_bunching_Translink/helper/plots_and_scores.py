@@ -107,7 +107,22 @@ class PlotsAndScores:
         plt.legend(loc="lower left")
         plt.show()
 
+    def feature_importance_plot(self, result, X, sorted_idx):
+        """
+        value = result.importances[sorted_idx].T
+        labels = X_text.columns[sorted_idx]
+        X = X_test
 
+        """
+        self.result = result
+        self.sorted_idx = sorted_idx
+        self.X = X
+        fig, ax = plt.subplots()
+        ax.boxplot(result.importances[sorted_idx[-8:]].T,
+                   vert=False, labels=self.X.columns[sorted_idx[-8:]])
+        ax.set_title("Permutation Importances (test set)")
+        fig.tight_layout()
+        plt.show()
 ## Some more functions
 
 def mcc_metric(y, y_pred):

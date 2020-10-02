@@ -7,6 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.tree import DecisionTreeClassifier
 import xgboost
+from sklearn.inspection import permutation_importance
 
 from helper.plots_and_scores import *
 
@@ -121,11 +122,12 @@ class AdaBoostModel:
         # un_opt_pred =un_opt_model.predict(self.X)
         return model
 
+
 class XgboostModel:
     def __init__(self):
         self.clf = xgboost.XGBRFClassifier()
 
-    def defaultmodel(self, X,y):
+    def defaultmodel(self, X, y):
         self.X = X
         self.y = y
         print("In unoptimized fit now in XGBoost--------")
@@ -135,6 +137,22 @@ class XgboostModel:
         print("Time taken to fit: {:.4f} s".format(elapsed_time))
         print('\n')
         return model
+
+
+class FeatImportance:
+    def __init__(self, model, X, y):
+        self.model = model
+        self.X = X
+        self.y = y
+
+    def feat_importance(self):
+        print("In feature importance now --------")
+        t = time.time()
+        result = permutation_importance(self.model, self.X, self.y, n_repeats=10, random_state=0)
+        sorted_idx = result.importances_mean.argsort()
+        elapsed_time = time.time() - t
+        print("Time taken for feature importance: {:.4f} s".format(elapsed_time))
+        return result, sorted_idx
 
 
 MODELS = {

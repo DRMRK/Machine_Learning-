@@ -3,8 +3,9 @@
 from helper.structured import *
 from sklearn.model_selection import train_test_split
 from helper.plots_and_scores import *
-import time
 from sklearn.preprocessing import StandardScaler
+
+from src.dispatcher import FeatImportance
 from . import dispatcher
 
 TRAINING_DATA = os.environ.get("TRAINING_DATA")
@@ -23,31 +24,64 @@ if __name__ == '__main__':
     X, y, nas = proc_df(data, y_fld='NextLegBunchingFlag',
                         skip_flds=['NextNextLegBunchingFlag',
                                    'NextNextNextLegBunchingFlag'])
+    # Standardize the dataset
+    ss = StandardScaler()
+    X_scaled = pd.DataFrame(ss.fit_transform(X), columns=X.columns)
     # Stratified sampling for train, test and validation datasets
-    X = StandardScaler().fit_transform(X)
     X_train, X_test_valid, y_train, y_test_valid = \
-        train_test_split(X, y, random_state=1, test_size=0.20,
+        train_test_split(X_scaled, y, random_state=1, test_size=0.20,
                          stratify=y)
     X_test, X_valid, y_test, y_valid = \
         train_test_split(X_test_valid, y_test_valid,
                          random_state=1, test_size=0.50,
                          stratify=y_test_valid)
+
+
     # Now the data is ready for modelling
     print("Instantiating and training the model")
-    start_time = time.time()
     # choose the model
     model = dispatcher.MODELS[MODEL]
     # This steps returns the fitted model ready for prediction
     clf = model.defaultmodel(X_train, y_train)
-    end_time = time.time() - start_time
-    print("Time taken for training: {:.4f} s".format(end_time))
+    print('-------------')
+    print("Scores for train data")
+    y_pred_train = clf.predict(X_train)
+    scores_train = PlotsAndScores(y_train, y_pred_train, None)
+    scores_train.print_scores()
     print("Scores for test data")
     y_pred_test = clf.predict(X_test)
     scores_test = PlotsAndScores(y_test, y_pred_test, None)
     scores_test.print_scores()
-    print('-------------\n')
+    # scores_test.display_confusion_matrix(report1, 'Test')
+    print('-------------')
+    print("Now do feature selection")
+    imp_feature = FeatImportance(clf, X_test, y_test)
+    result, sorted_idx = imp_feature.feat_importance()
+    print('Top 8 features later ones are more important: ', X_test.columns[sorted_idx[-8:]])
+    scores_test.feature_importance_plot(result, data, sorted_idx)
+    # Choose the top 8 features and run the predictions again
+    feat = X_test.columns[sorted_idx[-8:]]
+    top_8_features = [i for i in feat]
+    X_scaled_chosen = X_scaled[top_8_features]
+    print('-------------')
+    print('Now we choose top 8 features and run the model again')
+    # Stratified sampling for train, test and validation datasets
+    X_train, X_test_valid, y_train, y_test_valid = \
+        train_test_split(X_scaled_chosen, y, random_state=1, test_size=0.20,
+                         stratify=y)
+    X_test, X_valid, y_test, y_valid = \
+        train_test_split(X_test_valid, y_test_valid,
+                         random_state=1, test_size=0.50,
+                         stratify=y_test_valid)
+    # This steps returns the fitted model ready for prediction
+    clf = model.defaultmodel(X_train, y_train)
     # scores_test.display_confusion_matrix(report1, 'Test')
     print("Scores for train data")
     y_pred_train = clf.predict(X_train)
     scores_train = PlotsAndScores(y_train, y_pred_train, None)
     scores_train.print_scores()
+    print('-------------')
+    print("Scores for test data")
+    y_pred_test = clf.predict(X_test)
+    scores_test = PlotsAndScores(y_test, y_pred_test, None)
+    scores_test.print_scores()
