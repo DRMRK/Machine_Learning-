@@ -56,11 +56,11 @@ if __name__ == '__main__':
     print("Now do feature selection")
     imp_feature = FeatImportance(clf, X_test, y_test)
     result, sorted_idx = imp_feature.feat_importance()
-    print('Top 8 features later ones are more important: ', X_test.columns[sorted_idx[-10:]])
+    print('Top 8 features later ones are more important: ', X_test.columns[sorted_idx[-20:]])
     scores_test.feature_importance_plot(result, data, sorted_idx)
 
     # Choose the top 8 features and run the predictions again
-    feat = X_test.columns[sorted_idx[-10:]]
+    feat = X_test.columns[sorted_idx[-20:]]
     top_8_features = [i for i in feat]
     X_scaled_chosen = X_scaled[top_8_features]
     print('-------------')

@@ -163,17 +163,18 @@ class VotingCls:
     def __init__(self):
         self.log_clf = LogisticRegression(max_iter=1000, C=100000, penalty='l2')
         self.xgb_clf = xgboost.XGBRFClassifier()
-        self.random_forest_clf = RandomForestClassifier(n_jobs=-1, criterion='gini')
-        self.svc_clf = SVC()
-        self.ADB_clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=1), n_estimators=200,
-                                          algorithm="SAMME.R", learning_rate=0.5)
+        self.random_forest_clf = RandomForestClassifier(n_jobs=-1, criterion='gini',max_features=0.8,
+                                                        n_estimators=140, min_samples_leaf=2)
+        #self.svc_clf = SVC()
+        #self.ADB_clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=1), n_estimators=200,
+        #                                  algorithm="SAMME.R", learning_rate=0.5)
 
     def defaultmodel(self, X, y):
         print("In Voting classifier")
         self.X = X
         self.y = y
-        voting_clf = VotingClassifier(estimators=[('svc', self.svc_clf), ('lr', self.log_clf), ('xgb', self.xgb_clf),
-                                                  ('rf', self.random_forest_clf),('adb', self.ADB_clf)], voting='hard')
+        voting_clf = VotingClassifier(estimators=[('lr', self.log_clf),('xbf',self.xgb_clf),
+                                                    ('rf', self.random_forest_clf)],voting='soft')
         t = time.time()
         model = voting_clf.fit(self.X, self.y)
         elapsed_time = time.time() - t
