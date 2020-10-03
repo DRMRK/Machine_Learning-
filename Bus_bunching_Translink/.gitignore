@@ -141,6 +141,7 @@ cython_debug/
 input/
 models/
 data/
+.idea/
 .ipynb_checkpoints/
 # data files
 *.csv
