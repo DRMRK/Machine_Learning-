@@ -71,9 +71,9 @@ class RandomForestModel:
             min_samples_leaf=[2, 3, 5]
         )
         # Set up the scoring method
-        scorer = make_scorer(MccMetric, greater_is_better=True)
+        scorer = make_scorer(mcc_metric, greater_is_better=True)
         # Set up the random search estimator, this will train 5 models.
-        clf = RandomizedSearchCV(model, model_params, n_iter=2, random_state=0, scoring=scorer)
+        clf = RandomizedSearchCV(model, model_params, n_iter=5, random_state=0, scoring=scorer)
         print("In random tune fit now--------")
         start_time = time.time()
         fit_model = clf.fit(self.X, self.y)
@@ -82,7 +82,7 @@ class RandomForestModel:
         # Get the best estimator
         best_clf = fit_model.best_estimator_
         # Print the best parameters
-        # pprint(fit_model.best_estimator_.get_params())
+        print('best parameters', fit_model.best_estimator_.get_params())
         return best_clf
 
 
@@ -186,3 +186,10 @@ MODELS = {
     "xgboost": XgboostModel(),
     "votingclassifier": VotingCls()
 }
+"""
+best parameters {'bootstrap': True, 'ccp_alpha': 0.0, 'class_weight': None, 'criterion': 'gini', 'max_depth': None,
+ 'max_features': 0.5, 'max_leaf_nodes': None, 'max_samples': 0.9, 'min_impurity_decrease': 0.0, 'min_impurity_split': None, 
+ 'min_samples_leaf': 5, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0, 'n_estimators': 144, 'n_jobs': -1, 
+ 'oob_score': False, 'random_state': None, 'verbose': 0, 'warm_start': False}
+
+"""
