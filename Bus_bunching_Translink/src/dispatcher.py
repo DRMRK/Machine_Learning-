@@ -101,7 +101,6 @@ class LogisticRegModel:
         un_opt_model = self.clf.fit(self.X, self.y)
         elapsed_time = time.time() - t
         print("Time taken to fit: {:.4f} s".format(elapsed_time))
-        print('\n')
         # un_opt_pred =un_opt_model.predict(self.X)
         return un_opt_model
 
@@ -120,7 +119,6 @@ class AdaBoostModel:
         model = self.clf.fit(self.X, self.y)
         elapsed_time = time.time() - t
         print("Time taken to fit: {:.4f} s".format(elapsed_time))
-        print('\n')
         # un_opt_pred =un_opt_model.predict(self.X)
         return model
 
@@ -137,7 +135,6 @@ class XgboostModel:
         model = self.clf.fit(self.X, self.y)
         elapsed_time = time.time() - t
         print("Time taken to fit: {:.4f} s".format(elapsed_time))
-        print('\n')
         return model
 
 
@@ -166,20 +163,19 @@ class VotingCls:
         self.random_forest_clf = RandomForestClassifier(n_jobs=-1, criterion='gini',max_features=0.8,
                                                         n_estimators=140, min_samples_leaf=2)
         #self.svc_clf = SVC()
-        #self.ADB_clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=1), n_estimators=200,
-        #                                  algorithm="SAMME.R", learning_rate=0.5)
+        self.ADB_clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=1), n_estimators=200,
+                                          algorithm="SAMME.R", learning_rate=0.5)
 
     def defaultmodel(self, X, y):
         print("In Voting classifier")
         self.X = X
         self.y = y
         voting_clf = VotingClassifier(estimators=[('lr', self.log_clf),('xbf',self.xgb_clf),
-                                                    ('rf', self.random_forest_clf)],voting='soft')
+                                                    ('rf', self.random_forest_clf),('adb',self.ADB_clf)],voting='soft')
         t = time.time()
         model = voting_clf.fit(self.X, self.y)
         elapsed_time = time.time() - t
         print("Time taken to fit voting classifier: {:.4f} s".format(elapsed_time))
-        print('\n')
         return model
 
 

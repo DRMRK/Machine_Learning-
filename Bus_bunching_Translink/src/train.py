@@ -56,7 +56,7 @@ if __name__ == '__main__':
     print("Now do feature selection")
     imp_feature = FeatImportance(clf, X_test, y_test)
     result, sorted_idx = imp_feature.feat_importance()
-    print('Top 8 features later ones are more important: ', X_test.columns[sorted_idx[-20:]])
+    print('Top 20 features later ones are more important: ', X_test.columns[sorted_idx[-20:]])
     scores_test.feature_importance_plot(result, data, sorted_idx)
 
     # Choose the top 8 features and run the predictions again
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     top_8_features = [i for i in feat]
     X_scaled_chosen = X_scaled[top_8_features]
     print('-------------')
-    print('Now we choose top 8 features and run the model again')
+    print('Now we choose top 20 features and run the model again')
     # Stratified sampling for train, test and validation datasets
     X_train, X_test_valid, y_train, y_test_valid = \
         train_test_split(X_scaled_chosen, y, random_state=1, test_size=0.20,
