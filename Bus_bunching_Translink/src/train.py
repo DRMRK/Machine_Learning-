@@ -40,7 +40,7 @@ if __name__ == '__main__':
     # choose the model
     model = dispatcher.MODELS[MODEL]
     # This steps returns the fitted model ready for prediction
-    clf = model.RandomTune(X_train, y_train)
+    clf = model.defaultmodel(X_train, y_train)
     print('-------------')
     print("Scores for train data")
     y_pred_train = clf.predict(X_train)

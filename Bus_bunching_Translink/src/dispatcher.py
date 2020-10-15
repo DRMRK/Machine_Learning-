@@ -14,7 +14,7 @@ from sklearn.inspection import permutation_importance
 from helper.plots_and_scores import *
 
 
-class RandomForestModel:
+class RandomForestModel():
     """ Runs Random forest
         Parameter
         ---------
@@ -22,7 +22,8 @@ class RandomForestModel:
         y : target"""
 
     def __init__(self):
-        self.random_forest = RandomForestClassifier(n_jobs=-1, criterion='gini')
+        self.random_forest = RandomForestClassifier(n_estimators=144, n_jobs=-1, criterion='gini',
+                                                    max_samples=0.9, max_features=0.5, min_samples_leaf=3)
 
     def defaultmodel(self, X, y):
         """
