@@ -1,0 +1,5 @@
+#exclude
+/cars_devkit.tar
+/Untitled.ipynb
+/cars_annos.mat
+/devkit/*
