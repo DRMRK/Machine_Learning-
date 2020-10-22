@@ -8,6 +8,7 @@ Details are in https://ai.stanford.edu/~jkrause/cars/car_dataset.html
 - I use transfer learning.
 - Model is trained on Google Cloud Platform. (Machine type 4 vCPUs, 15 GB RAM, NVIDIA Tesla T4X1)
 - First model is trained using weights from RESNET50. Each epoch takes about 3.5 minute to finish.
+
 | Pretrain| #of epoch  | train_loss | valid_loss | accuracy |
 | :---:   | :-: | :-: | :-: | :-:|
 | ResNet50 | 10 | 0.086395 | 0.443805 | 0.884591 |
