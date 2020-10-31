@@ -6,7 +6,7 @@ In  this data visualization project I download flight data from Bureau of Transp
 - After cleaning the data I use plotly to make an interactive visualization.
 - The result is a plot that shows the aiport locations on a MAP of US, by hovering the mouse on the plot one can get information such as total number of flights, fraction of delayed flights etc.   
 
-## Bus_bunching_Translink**
+## Bus_bunching_Translink
 In this classification project I use bus data from Translink (Vancouver's public transport company). One major problem in public buses is that sometimes two buses with the same route number end up in the same bus stop altough they start with a time delay between them. We call this as bus bunching. I use data from trips that occured during October 2016. Using this data I try to model if we can predict if bus bunching will happen. I separate the data into train and test set and use various classification algorithms. 
 
 ## NLP_LDA 
