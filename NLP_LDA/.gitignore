@@ -1,6 +1,6 @@
 #exclude
-/Data/*
-/data_test/*
+/Data
+/data_test
 /NLP_gensim_MRK.ipynb
 /NLP_project-MRK.ipynb
 .ipynb_checkpoints
