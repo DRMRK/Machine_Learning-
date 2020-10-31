@@ -4,6 +4,6 @@
 NLP_gensim_MRK.ipynb
 NLP_project-MRK.ipynb
 .ipynb_checkpoints
-*/.ipynb_checkpoints/*
+.ipynb_checkpoints/
 online_btm.html
 /Mallet/
