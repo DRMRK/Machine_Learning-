@@ -1,11 +1,9 @@
 #exclude
-/car_devkit.tar
-/Untitled.ipynb
-/cars_annos.mat
 /Data/*
 /data_test/*
 /NLP_gensim_MRK.ipynb
 /NLP_project-MRK.ipynb
-/.ipynb_checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
 /online_btm.html
 
