@@ -7,7 +7,7 @@ In  this data visualization project I download flight data from Bureau of Transp
 - The result is a plot that shows the aiport locations on a MAP of US, by hovering the mouse on the plot one can get information such as total number of flights, fraction of delayed flights etc.   
 
 ## Bus_bunching_Translink
-In this supervised learning project I use bus data from Translink (Vancouver's public transport company). One major problem in public buses is that sometimes two buses with the same route number end up in the same bus stop at the same time, although they startfrom their origin stop with a time delay between them. When this happens we deifine it as bus bunching. I use data from trips that occured during October 2016 in Vancouver. Using this data I try to model if we can predict whether bus bunching will happen. I separate the data into train and test set and use various classification algorithms. 
+In this supervised learning project I use bus data from Translink (Vancouver's public transport company). One major problem in public buses is that sometimes two buses with the same route number end up in the same bus stop at the same time, although initially they start from their origin stop with a time delay between them. When this happens we define it as bus bunching. I use data from trips that occured during October 2016 in Vancouver on a specific bus route. Using this data I try to model if we can predict whether bus bunching will happen (we do not want this to happen :). I clean the data, separate the data into train and test set and use various classification algorithms. 
 
 ## NLP_LDA 
 
