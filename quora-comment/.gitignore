@@ -86,7 +86,9 @@ Untitled.ipynb
 # Other
 wiki.en.vec
 wiki.en.bin
-
+Pipfile
+Pipfile.lock
+#
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
