@@ -1,8 +1,8 @@
 ## Predict if two quora questions are same
 This is a Kaggle problem, to test our models we use labelled data.
 - I divide the labelled data into training and test.
-- I judge the models on accuracy on test data. #### Summary
-- I first use a bow model.
+- I judge the models on accuracy on test data.
+- I use a bag of word model.
 - I combine two questions into one column.
 - I tokenize the combined column.
 - I numericalize the combined column using TFIDF. The result of TFIDF is our input to the models.
