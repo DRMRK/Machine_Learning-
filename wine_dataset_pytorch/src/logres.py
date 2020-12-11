@@ -17,7 +17,8 @@ def run(fold):
 
     scaler = preprocessing.StandardScaler()
     x_train = scaler.fit_transform(df_train[features])
-    x_valid = scaler.fit_transform(df_valid[features])
+    # Transform using train fit scaler 
+    x_valid = scaler.transform(df_valid[features])
 
     model = linear_model.LogisticRegression(max_iter=500, C=1000)
         

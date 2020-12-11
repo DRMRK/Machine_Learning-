@@ -11,6 +11,7 @@ import math
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import LabelEncoder
 from sklearn import preprocessing
+import joblib
 
 import dataset
 import config
@@ -28,8 +29,10 @@ def run(df, fold):
     ytrain = (train_df["wclass_num"]-train_df["wclass_num"].min()).astype('category')
     # get validation data using folds
     valid_df=df[df.kfold ==fold].reset_index(drop=True)
-    xvalid = scaler.fit_transform(valid_df[features])
+    # transform the valid data using fits in train
+    xvalid = scaler.transform(valid_df[features])
     yvalid = (valid_df["wclass_num"]-valid_df["wclass_num"].min()).astype('category')
+    #print("classes", df.wclass.value_counts())
     
     # initialize dataset class for training
    
@@ -38,7 +41,7 @@ def run(df, fold):
     # torch dataloader loads the data using dataset class in batches 
     # specifed by bath_size
     train_data_loader = torch.utils.data.DataLoader(dataset = train_dataset,
-    batch_size=config.TRAIN_BATCH_SIZE, num_workers=0)
+    batch_size=config.TRAIN_BATCH_SIZE, num_workers=0, shuffle=True)
 
     # initialize dataset class for vailidation
    
@@ -50,13 +53,13 @@ def run(df, fold):
     batch_size=config.VALID_BATCH_SIZE, num_workers=0)
     # create toech device
     device = torch.device("cpu")
-    
+
     # get the model
     model = network.Network()
     # initialize the optimizer
-    learning_rate = 0.00008
+    learning_rate = 0.005
 
-    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=1e-4)
+    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=10e-3)
     for epoch in range(config.EPOCHS):
         total_correct = 0
         # train one epoch
@@ -71,6 +74,18 @@ def run(df, fold):
                 "train_correct_pcntg: %.4f" %(train_correct/xtrain.shape[0]),
                 "train_correct", train_correct
                 )
+    # save the trained model            
+    torch.save(model.state_dict(), config.MODEL_PATH)
+    print("Model dumped")
+    # Save the data column from training
+    model_columns=list(train_df.columns)
+    joblib.dump(model_columns, config.MODEL_COLUMN)
+    print("model columns dumped")
+    # Save the scaler from training
+    joblib.dump(scaler,config.MODEL_TRANSFORMS)
+    print("scaler dumped")
+      
+
 if __name__=="__main__":
     df=pd.read_csv('../input/train_folds.csv')
     for fold in range(5):

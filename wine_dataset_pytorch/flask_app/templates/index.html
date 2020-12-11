@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block head%}
+
+{% endblock %}
+
+{% block body %}
+<div>
+    <h1>WINE QUALITY PREDICTOR</h1>
+
+    <form action="/predict" method="POST">
+        <div>
+            <p>Fixed Acidity</p>
+            <input type="text" name = "fixedacidity" id="fixedacidity">
+        </div>
+
+        <div>
+            <p>Volatile Acidity</p>
+            <input type="text" name = "volatile_acidity" id="volatile_acidity">
+        </div>
+
+        <div>
+            <p>Citric Acid</p>
+            <input type="text" name = "citric_acid" id="citric_acid">
+        </div>
+       
+        <div>
+            <p>Residual sugar</p>
+            <input type="text" name = "residual_sugar" id="residual_sugar">
+        </div>
+
+        <div>
+            <p>Chlorides</p>
+            <input type="text" name = "chloride" id="chloride">
+        </div>
+        
+        <div>
+            <p>free sulfur dioxide</p>
+            <input type="text" name = "free_sulfur_dioxide" id="free_sulfur_dioxide">
+        </div>
+
+        <div>
+            <p>Total sulfur dioxide</p>
+            <input type="text" name = "total_sulfur_dioxide" id="total_sulfur_dioxide">
+        </div>
+
+        <div>
+            <p>Density</p>
+            <input type="text" name = "density" id="density">
+        </div>
+
+        <div>
+            <p>pH</p>
+            <input type="text" name = "pH" id="pH">
+        </div>
+        
+        <div>
+            <p>Sulphates</p>
+            <input type="text" name = "sulphates" id="sulphates">
+        </div>
+
+        <div>
+            <p>alcohol</p>
+            <input type="text" name = "alcohol" id="alcohol">
+        </div>
+
+
+
+        <input type="submit" value="Predict">
+    </form>
+    <h2>Predicted: {{pred}}</h2>
+</div>
+{% endblock %}
