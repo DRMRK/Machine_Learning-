@@ -123,6 +123,7 @@ class PlotsAndScores:
         ax.set_title("Permutation Importances (test set)")
         fig.tight_layout()
         plt.show()
+        plt.close()
 ## Some more functions
 
 def mcc_metric(y, y_pred):
