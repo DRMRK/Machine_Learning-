@@ -36,3 +36,8 @@ This is a problem from Kaggle. The goal of the competition is to predict which o
 - When I use NaiveBayes Logistic regression we obtain accurace score 0.796 in about 9 minute.
 - When I use Xgboost we obtain accurace score 0.793 in about 9 minute.
 - I tried Gaussian Naive Bayes and Support vector machine. Using a small subset of data I find traing is slow so did not move forward with these
+
+## Cassava_Leaf_Disease_Classification
+
+- Data from Kaggle
+- Identify the type of disease present on a Cassava Leaf image. 
