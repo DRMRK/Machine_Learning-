@@ -21,6 +21,7 @@ The goal of this competition is to predict which of the provided pairs of questi
 - Logistic regression --> AUC score 0.7676   
 
 ##### Stacking using XGboost 
-- I use the output of the above 4 models as features and train a  XGboost classfier model on these features. The AUC score 0.8563 
+- I use the output of the above 4 models as features and train a  XGboost classfier model on these features. 
+- AUC score 0.8563 
 
 ##### From this exercise we see that stacking helps in improving the AUC score.  
