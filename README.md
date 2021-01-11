@@ -7,9 +7,9 @@ In  this data visualization project I download flight data from Bureau of Transp
 - The result is a plot that shows the aiport locations on a MAP of US, by hovering the mouse on the plot one can get information such as total number of flights, fraction of delayed flights etc.   
 
 
-## NLP_LDA 
+## NLP_TOPIC_LDA 
 
-In this Natural language processing project I use twitter data and try to identify prevalent topics in the tweets directed at Translink. I use two versions of Latent Dirichlet Allocation- Gensim implementation and Mallet implementation. Due to small sentences in twitter data this technique is not as effective as with longer documents but still gives some idea of the underlying topics. 
+In this Natural language processing project I use twitter dataset collected from Kaggle. I try to identify prevalent topics in the tweets. I use Latent Dirichlet Allocation (Gensim implementation). Due to small sentences in twitter data this technique is not as effective as with longer documents but still gives some idea of the underlying topics.  
 
 ## classify_cars
 
