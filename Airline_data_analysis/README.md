@@ -7,4 +7,3 @@ For this project I use data from Bureau of Transport Statistics. I have download
 - remove airports that have less than 5 flights over the month.
 - Screenshot of the plot 
 ![](reports/airport_plot.png) 
-airport_
