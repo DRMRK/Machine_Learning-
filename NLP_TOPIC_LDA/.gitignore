@@ -1,0 +1,6 @@
+#exclude
+.ipynb_checkpoints
+.ipynb_checkpoints/
+Untitled.ipynb
+Twitter_LDA.ipynb
+training.csv
