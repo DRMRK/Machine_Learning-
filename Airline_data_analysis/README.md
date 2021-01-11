@@ -5,3 +5,7 @@ For this project I use data from Bureau of Transport Statistics. I have download
 - Take data where departure delay is reported. 
 - Sort the data by date, take data for departure delay less than 500.
 - remove airports that have less than 5 flights over the month.
+
+- Screenshot of the plot
+
+![](reports/airport_plot.png) 
