@@ -14,3 +14,5 @@ Following is a descrption of the dataset.
 
 For this analysis we will choose the text column and the target column. I choose tweets corresponding to positive target (positive sentiment). We extract topics hidden in these texts using Latent Dirichlet Allocation (LDA).
 I perform similar analysis using texts with negative polarirty (negative sentiment). Finally, I visulize the results of the analysis by plotting a wordcloud.
+
+![](results/results.png)
