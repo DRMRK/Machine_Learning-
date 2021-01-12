@@ -85,7 +85,6 @@ def run(df, fold):
     joblib.dump(scaler,config.MODEL_TRANSFORMS)
     print("scaler dumped")
       
-
 if __name__=="__main__":
     df=pd.read_csv('../input/train_folds.csv')
     for fold in range(5):
