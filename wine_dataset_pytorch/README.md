@@ -55,3 +55,4 @@ Outputs - output/
 - cd flask_app
 - python -m app
 - This will direct to a webpage where one can enter the features and get a prediction. 
+![](flask_app/front.png)
