@@ -1,7 +1,7 @@
  
 #### Order of operation
-
-- sf run.sh, this runs the following in order: 
+- cd src_fasttext
+- sh run.sh, this runs the following in order: 
 
 1/ a_select_tiny_data.py 
 - reads whole datafile, selects the text columns and the target.
