@@ -26,6 +26,13 @@ def run_training(pred_df, fold):
     xtrain = train_df[["GNB_pred","lr_pred","xgb_pred_p","xgb_pred_n"]].values
     xvalid = valid_df[["GNB_pred","lr_pred","xgb_pred_p","xgb_pred_n"]].values
     
+    # Standard scaler
+        
+    sc = StandardScaler()
+    sc.fit(xtrain)
+
+    xtrain = sc.transform(xtrain)
+    xvalid = sc.transform(xvalid)
 
 
     le = preprocessing.LabelEncoder()
@@ -34,16 +41,14 @@ def run_training(pred_df, fold):
     ytrain = le.transform(train_df.target)
 
     yvalid = le.transform(valid_df.target)
-
-    
         
     
     clf=linear_model.LogisticRegression(
-        penalty ='l2',
-        C=0.05,
+        penalty ='none',
+        #C=0,
         max_iter=5000,
         class_weight='balanced',
-        solver='liblinear'
+        solver='lbfgs'
         )
         
     clf.fit(xtrain, ytrain)
