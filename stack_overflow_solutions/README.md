@@ -34,7 +34,7 @@ we end up with a 300 dimensioal vector.
 - this is the datset that we use for modelling 
 
 5/ run lr_embedding.py
------
+
 0.8001402507710061
 
 6/ run lr_embedding_for_blend.py (This saves the results in lr.csv with columns id,target,kfold,lr_pred )
