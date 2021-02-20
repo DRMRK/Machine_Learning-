@@ -31,3 +31,7 @@ For this project I use text contained in collumns "Title" and "BodyMarkdown"
 
 ##### src_fasttext:
  Here I use fasttext embedding vectors. I clean the text and use the embeddings for each word in a sentence and average them togther to get the sentences embeddings.  
+
+##### LSTM_src:
+Here I use fasttext embedding vectors after cleanign the data same way as in src_fastext. Then I use a LSTM network. 
+
