@@ -50,4 +50,4 @@ mean auc 0.7622890033701257
 9/ run xgb_embedding_blend.py with different sampling strategy. save in xgb_n.csv and xgb_p.csv
 
 10/ run blend_with_lr.py
-0.8007197716336153
+###### Final AUC: 0.8007197716336153
