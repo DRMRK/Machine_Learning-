@@ -35,19 +35,19 @@ we end up with a 300 dimensioal vector.
 
 5/ run lr_embedding.py
 
-0.8001402507710061
+0.8001(402507710061)
 
 6/ run lr_embedding_for_blend.py (This saves the results in lr.csv with columns id,target,kfold,lr_pred )
 
 7/ run lr_embedding_bagging_for_blend.py (This saves results in lr_bagging.csv with columns id,target,kfold,lr_bagging_pred)
 
-mean auc 0.8021495561063713
+mean auc 0.8021(495561063713)
 
 8/ run GNB_embedding_blend.py (This saves results in GNB.csv with columns id,target,kfold,GNB_pred)
 
-mean auc 0.7622890033701257
+mean auc 0.7622(890033701257)
 
 9/ run xgb_embedding_blend.py with different sampling strategy. save in xgb_n.csv and xgb_p.csv
 
 10/ run blend_with_lr.py
-###### Final AUC: 0.8007197716336153
+###### Final AUC: 0.8007(197716336153)
