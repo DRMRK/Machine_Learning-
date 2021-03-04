@@ -50,21 +50,14 @@ we end up with a 300 dimensioal vector.
 - dimension of the dataset is (# of rows, 602)
 - this is the datset that we use for modelling 
 
-5/ run lr_embedding.py
+5/ python lr_embedding.py
 
-0.8001(402507710061)
+6/ python lr_embedding_for_blend.py (This saves the results in lr.csv with columns id,target,kfold,lr_pred )
 
-6/ run lr_embedding_for_blend.py (This saves the results in lr.csv with columns id,target,kfold,lr_pred )
+7/ python lr_embedding_bagging_for_blend.py (This saves results in lr_bagging.csv with columns id,target,kfold,lr_bagging_pred)
 
-7/ run lr_embedding_bagging_for_blend.py (This saves results in lr_bagging.csv with columns id,target,kfold,lr_bagging_pred)
+8/ python GNB_embedding_blend.py (This saves results in GNB.csv with columns id,target,kfold,GNB_pred)
 
-mean auc 0.8021(495561063713)
+9/ python xgb_embedding_blend.py with different sampling strategy. save in xgb_n.csv and xgb_p.csv
 
-8/ run GNB_embedding_blend.py (This saves results in GNB.csv with columns id,target,kfold,GNB_pred)
-
-mean auc 0.7622(890033701257)
-
-9/ run xgb_embedding_blend.py with different sampling strategy. save in xgb_n.csv and xgb_p.csv
-
-10/ run blend_with_lr.py
-###### Final AUC: 0.8007(197716336153)
+10/ python blend_with_lr.py
