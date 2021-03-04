@@ -13,53 +13,58 @@ def train(data_loader, model,optimizer,device):
     model.train()
     # go through batches of data in dataloader
     for data in data_loader:
-        # get BodyMarkdown and OpenStatus
-        BodyMarkdown = data["BodyMarkdown"]
+        # fetch question and OpenStatus from the dict
+        question = data["question"]
         OpenStatus = data["OpenStatus"]
-
-        # move data to device
-        BodyMarkdown=BodyMarkdown.to(device,dtype=torch.long)
-        OpenStatus =OpenStatus.to(device,dtype=torch.float)
-
-        #clear the gradients
+        # move the data to device that we want to use
+        question = question.to(device, dtype=torch.long)
+        OpenStatus = OpenStatus.to(device, dtype=torch.float)
+        # clear the gradients
         optimizer.zero_grad()
-
-        # make predictions from model
-        predictions = model(BodyMarkdown)
-
+        # make predictions from the model
+        predictions = model(question)
         # calculate the loss
-        loss = nn.BCEWithLogitsLoss()(
-            predictions,
-            OpenStatus.view(-1,1)
-        )
-        # compute gradiet w.r.t to all trainable
-        #parameters
+        #loss = nn.BCELoss()(
+        #    predictions,
+        #    OpenStatus.view(-1, 1)
+        #    )
+        # calculate the loss
+        weight =torch.tensor([33.33,1.1]).cuda()
+        criterion = nn.BCELoss(reduction='none')
+        loss = criterion(predictions,OpenStatus.view(-1, 1))
+        loss= loss*weight
+        loss =loss.mean()
+
+        # compute gradient of loss w.r.t.
+        # all parameters of the model that are trainable
         loss.backward()
         # single optimization step
         optimizer.step()
 
+
 def evaluate(data_loader,model,device):
+    
     # initialize empty array to store predictions
     # and OpenStatus
     final_predictions = []
-    final_targets = []
+    final_OpenStatus = []
     # put model in eval mode
     model.eval()
         # disable gradient calculations
     with torch.no_grad():
         for data in data_loader:
-            BodyMarkdown = data["BodyMarkdown"]
+            question = data["question"]
             OpenStatus = data["OpenStatus"]
 
-            BodyMarkdown=BodyMarkdown.to(device,dtype=torch.long)
-            OpenStatus =OpenStatus.to(device,dtype=torch.long)
+            question=question.to(device,dtype=torch.long)
+            OpenStatus =OpenStatus.to(device,dtype=torch.float)
 
-            predictions = model(BodyMarkdown)
+            predictions = model(question)
 
-            # move predictions and targets to list
+            # move predictions and OpenStatus to list
             predictions = predictions.cpu().numpy().tolist()
             OpenStatus = data["OpenStatus"].cpu().numpy().tolist()
             final_predictions.extend(predictions)
-            final_targets.extend(OpenStatus)
+            final_OpenStatus.extend(OpenStatus)
 
-    return final_predictions, final_targets        
+    return final_predictions, final_OpenStatus        

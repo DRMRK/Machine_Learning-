@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
 
+
+
 class LSTM(nn.Module):
 
     def __init__(self,embedding_matrix):
@@ -25,34 +27,36 @@ class LSTM(nn.Module):
                 dtype = torch.float32
             )
         )
-        # Do not train the pretrained embeddings
+        # we dont want to train the pretrained embeddings
         self.embedding.weight.requires_grad = False
-        # bidirectional LSTM with hidden size of 128 
+        # a simple bidirectional LSTM with
+        # hidden size of 128 
         self.lstm = nn.LSTM(
             embed_dim,
             128,
-            bidirectional = True,
-            batch_first = True
-        )
+            bidirectional=True,
+            batch_first=True,
+            )
         # Output layer is a linear layer
         # input (512)=128+128 for mean and same for ma pooling
-        self.out = nn.Linear(512,1)
-
-    def forward(self,x):
+        self.out1 = nn.Linear(512,1)
+        self.out =nn.Sigmoid()
+    def forward(self, x):
         # pass data through embedding layer
-        #input is tokens
-        x= self.embedding(x)
-
+        # the input is just the tokens
+        x = self.embedding(x)
         # move embedding output to lstm
         x, _ = self.lstm(x)
-        # apply  mean and max pooling on the lstm output
-        avg_pool = torch.mean(x,1)
-        max_pool, _ = torch.max(x,1)
-        # concatenate mean and max pooling 
-        out = torch.cat((avg_pool, max_pool),1)
-
-        #pass through the output layer and return the output
+        # apply mean and max pooling on lstm output
+        avg_pool = torch.mean(x, 1)
+        max_pool, _ = torch.max(x, 1)
+        # concatenate mean and max pooling
+        # this is why size is 512
+        # 128 for each direction = 256
+        # avg_pool = 256 and max_pool = 256
+        out = torch.cat((avg_pool, max_pool), 1)
+        # pass through the output layer and return the output
+        out = self.out1(out)
         out = self.out(out)
-
         # return linear output
-        return out 
+        return out
