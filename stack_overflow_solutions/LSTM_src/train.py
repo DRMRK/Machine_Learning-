@@ -8,11 +8,14 @@ import tensorflow as tf
 
 from sklearn import metrics 
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_auc_score
 
 import config 
 import dataset 
 import engine 
 import lstm 
+
 
 def load_vectors(fname):
     fin = io.open(
@@ -131,13 +134,13 @@ def run(df, fold):
         # calculate accuracy 
         accuracy = metrics.accuracy_score(targets,outputs1)
         conf_m=confusion_matrix(targets,outputs1)
-        
-        
 
         print(
             f"Fold:{fold}, Epoch:{epoch}, Accuracy_score ={accuracy}"
             )
-        #print("conf_m\n",conf_m)
+        print("conf_m\n",conf_m)
+        roc_score=roc_auc_score(targets, np.array(outputs))
+        print('ROC AUC score\n', roc_score)
         print("---")
         # early stopping 
         if accuracy > best_accuracy:
