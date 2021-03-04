@@ -1,4 +1,14 @@
- 
+#### Directory structure
+.
+|-----input
+            |-----embeddings(put embeddings here)
+            |-----raw_data(put raw data here)
+            |-----tiny_data(put processed data here)
+|-----src_fasttext
+|-----LSTM_src (trained on aws)
+|-----notebooks
+|-----fastai_src (trained on google colab)
+
 #### Order of operation
 - cd src_fasttext
 - sh run.sh, this runs the following in order: 
