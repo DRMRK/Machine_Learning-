@@ -1,4 +1,21 @@
- 
+#### Directory structure
+.
+|-----input
+
+            |-----embeddings(put embeddings here)
+
+            |-----raw_data(put raw data here)
+
+            |-----tiny_data(put processed data here)
+
+|-----src_fasttext
+
+|-----LSTM_src (trained on aws)
+
+|-----notebooks
+
+|-----fastai_src (trained on google colab) 
+
 #### Description from Kaggle 
 Millions of programmers use Stack Overflow to get high quality answers to their programming questions every day.  We take quality very seriously, and have evolved an effective culture of moderation to safe-guard it.
 
