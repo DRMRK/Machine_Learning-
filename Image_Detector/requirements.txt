@@ -83,7 +83,7 @@ isort @ file:///opt/concourse/worker/volumes/live/97586196-dd0e-4a3f-4d06-330d40
 itsdangerous==1.1.0
 jdcal==1.4.1
 jedi==0.15.2
-Jinja2==2.11.2
+Jinja2==2.11.3
 joblib @ file:///home/conda/feedstock_root/build_artifacts/joblib_1601671685479/work
 json5==0.9.5
 jsonschema==3.2.0
