@@ -100,7 +100,7 @@ lazy-object-proxy==1.4.3
 libarchive-c==2.9
 llvmlite==0.34.0
 locket==0.2.0
-lxml==4.5.1
+lxml==4.6.3
 MarkupSafe @ file:///Users/runner/miniforge3/conda-bld/markupsafe_1600368268892/work
 matplotlib @ file:///Users/runner/miniforge3/conda-bld/matplotlib-base_1600159125001/work
 mccabe==0.6.1
